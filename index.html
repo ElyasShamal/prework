@@ -1,26 +1,27 @@
-
-<html>
-    <head>
-    <link rel="stylesheet"href="./style.css">
-    <script type="text/javascript" src="./javascript.js"></script>
-
-    </head>
-    <body>
-    
-    
-    
-    <div class="results">
-        <div id="PEOPLE_result" class="result">
-        </div>
-        <div id="FILMS_result" class="result">
-        </div>
-      </div>
-    
-    <div class="buttons">
-        <button id="PEOPLE_btn">PEOPLE</button>
-        <button id="FILMS_btn">FLIMS</button>
-    </div>
-    <script type ="text/javascript">
-    </script>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="JavaScript.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<meta charset="UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- Here a loader is created which
+			loads till response comes -->
+		<div class="d-flex justify-content-center">
+			<div class="spinner-border"
+				role="status" id="loading">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+		<h1>Star Wars Api</h1>
+		<!-- table for showing data -->
+		<table id="characters"></table>
+    <button onclick="nextPerson();">Next Character</button>
+    <table id="planets"></table>
+    <button onclick="nextPlanet();">Next Planet</button>
+	</body>
+</html>

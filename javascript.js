@@ -1,24 +1,91 @@
-console.log("testing");
-let button   = document.querySelector('#button');
-let name   = document.querySelector('#Name');
-let height   = document.querySelector('#Height');
-let mass  = document.querySelector('#mass');
-let hair_color   = document.querySelector('#hair_color');
-let skin_color   = document.querySelector('#"skin_color');
-let eye_color   = document.querySelector('#eye_color');
-let gender   = document.querySelector('#gender');
-			function getinfo(){
-      fetch('https://swapi.dev/api/people/1/')
+// api url
+const people_url =
+	"https://www.swapi.tech/api/people/";
+  
+ // api url
+const planet_url =
+	"https://www.swapi.tech/api/planets/";
+  
+ 
+var next_person = 1;
+var next_planet = 1;
 
+// Defining async function
+async function getpersonapi(url, next) {
+	
+	// Storing response
+    const response = await fetch(url + next);
+	// Storing data in form of JSON
+	var returned_value = await response.json();
+    let data = returned_value.result.properties;
+	console.log(data);
+	if (response) {
+		hideloader();
+	}
+	showCharacter(data);
 }
 
-function updateinfo(data){
- name.innertext = data.name 
- height.innertext = 'height:${data.height}'
- mass.innertext = 'mass:${data.mass}'
- hair_color.innertext = 'hair_color:${data.hair_color}'
- skin_color.innertext = 'skin_color:${data.skin_color}'
- eye_color.innertext =  'eye_color :${data.eye_color}'
- gender.innertext  = 'gender:${data.gender}'
+// Defining async function
+async function getplanetapi(url, next) {
+	
+	// Storing response
+    const response = await fetch(url + next);
+	// Storing data in form of JSON
+	var returned_value = await response.json();
+    let data = returned_value.result.properties;
+    console.log(data);
+	if (response) {
+		hideloader();
+	}
+	showPlanet(data);
 }
-buton.addeventlistener('click',getinfo)
+
+// Calling that async function
+getpersonapi(people_url, next_person);
+getplanetapi(planet_url, next_planet);
+
+// function to get the next person
+function nextPerson() {
+    next_person = next_person + 1;
+    getpersonapi(people_url, next_person);
+}
+
+// function to get the next planet
+function nextPlanet() {
+	next_planet = next_planet + 1;
+    getplanetapi(planet_url, next_planet);
+}
+
+// Function to hide the loader
+function hideloader() {
+	document.getElementById('loading').style.display = 'none';
+}
+// Function to define innerHTML for HTML table
+function showCharacter(data) {
+	let tab =
+		`<ulr>
+		<ul>Name : ${data.name}</ul>
+		<ul>Birth Year : ${data.birth_year}</ul>
+		<ul>Gender : ${data.gender}</ul>
+		<ul>Height : ${data.height}</ul>
+        <ul>Hair Color : ${data.hair_color}</ul>	
+		</ul>`;
+	
+
+	// Setting innerHTML as tab variable
+	document.getElementById("characters").innerHTML = tab;
+}
+
+// Function to define innerHTML for HTML table
+function showPlanet(data) {
+	let tab =
+		`<ul>
+		<ul>Name : ${data.name} </ul>
+		<ul>Population : ${data.population}</ul>
+		<ul>Terrain : ${data.terrain}</ul>
+		<ul>Climate : ${data.climate}</ul>
+		</ul>`;
+	
+	// Setting innerHTML as tab variable
+	document.getElementById("planets").innerHTML = tab;
+}
